@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+   <style>
+ 
+  #wrap {
+    /* height: 100%;
+    width:  100%; */
+    background-color:blue;
+    margin : 0;
+
+    padding: 40px;
+    display: flex;
+  }
+
+  .contenedor {
+    text-align: center;
+    margin : 0 auto;
+    border : 1px solid #000;
+    border-radius: 4px;
+    align-items: center;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 0 5px 5px #000;
+  }
+
+   button {
+     background-color: #fff;
+     border : none;
+     background-color: blue;
+
+     padding: 15px;
+     border-radius: 10px;
+     color: #fff;
+     text-shadow: 0 1px 4px #000;
+   }
+   </style>
+     
+     <div id="wrap">
+       <div class="contenedor">
+        <h1 id="clock"><span id="minutes">0</span>:<span id="seconds">0</span></h1>
+
+        <button id="starter">Start</button>
+        <button id="stoper">Stop</button>
+        <button id="reseter">Reset</button>
+       </div>
+     </div>
+
+
+    <script>
+
+      // hooks
+      const d = document
+      let seconds = d.getElementById("seconds")
+      let minutes = d.getElementById("minutes")
+
+      let starter = d.getElementById("starter")
+      let stoper  = d.getElementById("stoper")
+      let reseter = d.getElementById("reseter")
+
+      var cSeconds = 0
+      var cMinutes = 0
+ 
+      // evento del estarter
+      starter.onclick = function() {
+          
+        starter.disabled = true; // disable the button
+         
+              // hacemos el intervalor
+              var interval =  setInterval(function(e){ 
+                  // si llegamos a los 60 segundos
+                  if( cSeconds == 60 ) {
+                          cMinutes = cMinutes + 1
+                          minutes.textContent = cMinutes
+                          seconds.textContent = 0; 
+                          cSeconds = 0; // neutrlizamos
+                  } else {
+                      cSeconds = cSeconds + 1
+                      seconds.textContent = cSeconds
+                  }
+              }, 1000)
+
+                // evento stoper inside here for scope
+                stoper.onclick = function() {
+                  starter.disabled = false;
+                  clearInterval(interval)
+                }
+
+                // el reseter dentro de scope
+                reseter.onclick = function(){
+                  cSeconds = 0
+                  seconds.textContent = cSeconds
+                  cMinutes = 0
+                  minutes.textContent = cSeconds
+                }
+      }
+  
+    </script>
+    
+</body>
+</html>
